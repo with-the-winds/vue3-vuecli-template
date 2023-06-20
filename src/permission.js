@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-06-19 13:38:07
  * @LastEditors: zhubj
- * @LastEditTime: 2023-06-19 17:01:56
+ * @LastEditTime: 2023-06-20 10:40:37
  * @Description: 头部注释
  * @FilePath: \own-vue3-vuecli-template\src\permission.js
  */
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
     // to.meta.title && store.dispatch('settings/setTitle', to.meta.title) // 用于设置title
     /* has token*/
     if (to.path === '/login') {
-      next({ path: '/' })
+      next({ path: '/home' })
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) {
@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
         }).catch(err => {
             store.dispatch('LogOut').then(() => {
               ElMessage({ type: 'error', message: err })
-              next({ path: '/' })
+              next({ path: '/login' })
             })
           })
       } else {
@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
       // 在免登录白名单，直接进入
       next()
     } else {
-      next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      next('/login') // 否则全部重定向到登录页
       NProgress.done()
     }
   }
