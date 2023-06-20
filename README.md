@@ -128,7 +128,7 @@ HomeView.vue:
   </div>
 </template>
 ```
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/36118313/1687076648452-e2a2e66c-f562-4462-91cc-823c3c9260d8.png#averageHue=%23fefefe&clientId=ub4b42493-5ad7-4&from=paste&height=722&id=u6bcb53cc&originHeight=902&originWidth=1920&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=46007&status=done&style=none&taskId=u2b6bf48a-74d4-4cd7-be0e-1ab4e037518&title=&width=1536)
+![image.png](https://gitee.com/with_the_winds/images/blob/master/vue3-vuecli-template/20230620-001.png)  
 可以看到在没有引入 element-plus ，已经可以正常使用了。
 ## 四、安装 axios
 ### 1.安装 axios 实现网络请求
@@ -1183,7 +1183,7 @@ permission.js：
 const whiteList = ['/login','/404','/layout', '/home'] // 设置白名单，用于任何人可访问
 ```
 效果：
-![image.png](https://cdn.nlark.com/yuque/0/2023/png/36118313/1687165834901-f5719657-b022-4a9f-b950-ac448b415b62.png#averageHue=%234496dd&clientId=uaa635b6b-799c-4&from=paste&height=582&id=u95895a88&originHeight=728&originWidth=1910&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=30355&status=done&style=none&taskId=u0ea3eeda-b721-4c0f-bfd1-382493754a2&title=&width=1528)
+![image.png](https://gitee.com/with_the_winds/images/blob/master/vue3-vuecli-template/20230620-002.png)  
 这样基本的项目结构就全部完成了，实际项目开发的时候记得把白名单的页面设置成自己想要的页面。
 
 上面搭建的步骤中动态路由获取的内容没有添加，一般就是放在获取用户信息接口后面，然后通过 addRoute() 方法添加到路由上面。
