@@ -1,18 +1,26 @@
 创建一个 vue3 + webpack5 + element-plus 基本模板 （vue3 + webpack5 从零配置项目）。
 本项目结构可以作为实战项目的基本结构搭建学习，作为刚学习完vue还没有实战项目经验的小伙伴练习比较合适。
+
 项目地址：
+
 GitHub：[https://github.com/with-the-winds/vue3-vuecli-template](https://github.com/with-the-winds/vue3-vuecli-template)
+
 gitee: [https://gitee.com/with_the_winds/vue3-vuecli-template](https://gitee.com/with_the_winds/vue3-vuecli-template)
 # 前言
 本项目是通过 vue-cli 创建的 vue3 项目。基本的创建思路都是基于 [ruoyi框架](http://120.79.202.7/) 的项目。其实vue-admin-template 和 ruoyi 框架的都是差不多的，因为这两个项目是只有使用的文档，没有搭建的文档思路，所以我自己这写了下搭建的思路。
-那为什么不直接使用该项目呢？
-是因为我觉得该项目的模板过于庞大（虽然不需要的可以直接删除，但是觉得有点麻烦）所以自己仿照着写一个模板（自己写的也更有利于自己理解和使用）。
+
+那为什么不直接使用该项目呢？是因为我觉得该项目的模板过于庞大（虽然不需要的可以直接删除，但是觉得有点麻烦）所以自己仿照着写一个模板（自己写的也更有利于自己理解和使用）。
 # 环境
+
 **node：** v16.16.0
+
 **npm**： v8.11.0
+
 vue3 + webpack5 + vue-router4 + vuex4
+
 # 直接使用
 通过 git clone 或者直接下载 zip 包的方式进行下载代码。
+
 ```javascript
 // gitee 地址
 git clone https://gitee.com/with_the_winds/vue3-vuecli-template.git
@@ -44,6 +52,7 @@ vue create own-vue3-vuecli-template
 选择安装vuex、vue-router、sass，后面默认这些是已经安装，不会再重复安装了。
 ## 二、创建环境变量
 在根目录（own-vue3-vuecli-template文件下）创建 .env.development 和 .env.production 两个文件，用于存放开发环境和生产环境的环境变量值。
+
 .env.development:
 ```javascript
 # 开发环境配置
@@ -198,9 +207,13 @@ export function removeToken() {
 ```
 #### 2.3 完善 axios 的结构
 对于 request.js 进行完善，使封装的 axios 功能更加丰富。实现的功能：
+
 1.请求时设置 token 的可选项，因为有的接口不一定要用 token；
+
 2.请求报错；
+
 3.响应成功返回和响应报错（响应返回的code根据实际项目和后端对接）。
+
 
 在 utils 文件夹下创建 errorCode.js 文件，用于存放响应返回错误 code 的消息值（根据实际项目）。
 errorCode.js：
@@ -302,9 +315,12 @@ export default service
 
 ```
 可以从上面看到，在网络请求的时候如果返回401时，做了重新登录的提示，这边的退出登陆接口会通过状态管理store退出登录，因为store这边还没有实际写，所以暂时空留位置，后面会补充进去。
+
 ## 五、使用封装的 request.js 创建 api
 上述的 axios 到现在已经封装完成，然后现在应该创建一个接口，看如何使用封装的 axios。
+
 在 src 文件夹下创建一个 api 文件夹，然后在 api 文件夹下创建一个 login.js 文件，用于存放登录等相关接口。
+
 login.js：
 ```javascript
 import request from '../utils/request.js'
@@ -340,12 +356,15 @@ export function logout() {
 这样就可以在别的页面上进行使用接口了。
 ## 六、配置vue.config.js
 对于创建的接口如果运行在开发环境中，那么需要设置下代理服务器 devServer，生产环境一般用nginx配置就可以了，所以在 vue.config.js 文件下配置下代理服务器，顺便再配置下别的选项。
+
 对于vue中webpack的默认配置和相关配置信息可以阅读下这篇文章 [https://juejin.cn/post/6886698055685373965#heading-3](https://juejin.cn/post/6886698055685373965#heading-3) 和 官方文档一起配合食用更佳！！！
+
 安装下 `compression-webpack-plugin `插件用于 gzip 压缩打包。
 ```javascript
 npm install compression-webpack-plugin --save-dev
 ```
 完整配置如下（包含了gzip插件的配置和代理服务器的配置）：
+
 vue.config.js：
 ```javascript
 'use strict'
@@ -432,8 +451,11 @@ module.exports = defineConfig({
 在 store 文件夹下创建 modules 文件夹用于存放模块。然后在 modules 文件夹下再创建一个 user.js 文件，用于存放用户的相关信息。
 ### 实现 user.js 模块
 该文件实现的思路：
+
 1.存放用户登录后的相关信息（一般来说存放token、角色信息、按钮的权限信息，具体还是根据实际项目来）；
+
 2.退出登录时清空用户的相关信息。
+
 user.js：
 ```javascript
 import { login, logout, getInfo } from "@/api/login";
@@ -514,6 +536,7 @@ export default user
 ```
 ### 引入 user.js 模块
 在 store 文件夹下的 index.js 文件中引入 user.js 文件。
+
 index.js：
 ```javascript
 import { createStore } from 'vuex'
@@ -536,6 +559,7 @@ export default createStore({
 ```
 ### 处理 request.js 遗留的退出登录的功能
 在 request.js 文件中，之前有个 401 状态码调用退出登录接口的功能没有实现，现在补充完整。
+
 引入 store 文件：
 ```javascript
 import store from '@/store';
@@ -560,11 +584,17 @@ if (!isRelogin.show) {
 ```
 ## 八、添加 permission.js
 在 src 文件夹下创建 permission.js 文件：
+
 该文件的作用主要是通过路由导航守卫，实现路由的控制：
+
 1.当 token 消失后不能跳转别的页面，要返回登录页面；
+
 2.点击登录之后不能通过回退按钮返回到登录页面（这个不是必须的看具体实现，另外三条是必须必须的）；
+
 3.点击退出登录后会自动跳转到登录页面，同样不能越过登录通过回退按钮进入到其他页面；
+
 4.由于页面刷新会重置store，所以要实现vuex的持久化（当然对于vuex的持久化是有插件的，我这边是没有使用）。
+
 安装插件`nprogress`用于控制进度条的显示：
 ```javascript
 npm i nprogress -S
@@ -631,8 +661,11 @@ router.afterEach(() => {
 })
 ```
 目前页面重定向的页面都是登录页面，所以现在修改路由配置。
+
 注意：这里我注释了两个地方，一个是生成路由的部分，还有一个是设置页面 title 的部分。对于生成路由的部分就是用来动态生成路由，而不是把页面的路由都静态放在 router.js 页面中，由后端接口传递过来（这部分请根据实际项目接口写）。
+
 创建完成之后引入到 main.js 文件，用于实现控制页面的权限。
+
 main.js：
 ```javascript
 import { createApp } from 'vue'
@@ -648,6 +681,7 @@ createApp(App).use(store).use(router).mount('#app')
 页面分为公共页面和动态加载的页面，公共页面一般包含登录页面和404页面。
 ### 创建登录页面
 把原本的 AboutView.vue 文件 和 HomeView.vue 文件删除。注意把 APP.vue 文件中的链接去掉，只留下<router-view/>。然后在 views 文件夹下面创建一个 login 文件夹，在 login 文件夹下面创建一个 index.vue 文件。
+
 login/index.vue：
 ```javascript
 <template>
@@ -723,6 +757,7 @@ export default {
 ### 创建 404 页面
 在 view 文件夹下创建 error 文件夹，在error 文件夹下创建 404.vue 文件。
 这里有用到两个404的图片，分别在 assets/images/base 文件夹下面。
+
 error/404.vue：
 ```javascript
 <template>
@@ -994,7 +1029,9 @@ export default router
 
 ```
 注意：对于 404 页面一定要放在最后面，这里由于是静态路由所以我直接放在这边，正确的方式应该是通过动态路由添加路由完成之后，最后再添加 path: '/:catchAll(.*)' 这个路由页面。这是因为 vue 匹配路由的规则是一个个遍历过去，如果把这个 path 放在中间，那么后面的路由页面就不会被匹配到了，会直接去到404页面。
+
 注意：这个时候记得在 permission.js 文件的白名单中添加 '/404' 路径，不然会被重定向（要明白peimission.js的作用）。
+
 permission.js：
 ```javascript
 const whiteList = ['/login','/404'] // 设置白名单，用于任何人可访问
@@ -1002,6 +1039,7 @@ const whiteList = ['/login','/404'] // 设置白名单，用于任何人可访�
 ## 十、添加 Layout 页面
 这个步骤请根据实际项目来写，因为我这里后台项目写的多，所以基本登录页面进入后就是左边导航栏或者上面导航栏，然后内容显示在导航栏的右边或下面。
 在 src 文件夹下创建 layout 文件夹，然后在 layout 文件夹下创建一个index.vue文件。这个文件就作为登录成功后的入口页面。
+
 layout/index.vue：
 ```javascript
 <template>
@@ -1048,7 +1086,9 @@ export default {
 </style>
 ```
 这里分为了左右布局，简单的用红色表示侧边栏，蓝色表示内容区域。现在基本结构就这样搭建好了，如果需要添加别的功能就可以不断添加，比如侧边栏的组件封装。
+
 现在在 views 文件夹下创建一个 home文件夹，然后在 home 文件夹下创建一个 index.vue 文件。该文件用来测试刚刚创建的侧边栏和内容区域是否可行。
+
 home/index.vue：
 ```javascript
 <template>
@@ -1068,6 +1108,7 @@ export default {
 </script>
 ```
 注意：修改下APP.vue 的样式，不然当前html没有高度：
+
 APP.vue：
 ```vue
 <style lang="scss">
@@ -1091,6 +1132,7 @@ body {
 ```
 添加路由：
 在 router 文件夹下的index.js文件配置刚刚新增的home页面：
+
 router/index.js：
 ```javascript
 import { createRouter, createWebHistory } from 'vue-router'
@@ -1135,6 +1177,7 @@ export default router
 
 ```
 注意：不要忘记在 permission.js 文件中添加白名单，不然权限无法访问新增的页面，因为现在没有实际的登录接口，所以一直会被重定向。
+
 permission.js：
 ```javascript
 const whiteList = ['/login','/404','/layout', '/home'] // 设置白名单，用于任何人可访问
@@ -1142,6 +1185,7 @@ const whiteList = ['/login','/404','/layout', '/home'] // 设置白名单，用�
 效果：
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/36118313/1687165834901-f5719657-b022-4a9f-b950-ac448b415b62.png#averageHue=%234496dd&clientId=uaa635b6b-799c-4&from=paste&height=582&id=u95895a88&originHeight=728&originWidth=1910&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=30355&status=done&style=none&taskId=u0ea3eeda-b721-4c0f-bfd1-382493754a2&title=&width=1528)
 这样基本的项目结构就全部完成了，实际项目开发的时候记得把白名单的页面设置成自己想要的页面。
+
 上面搭建的步骤中动态路由获取的内容没有添加，一般就是放在获取用户信息接口后面，然后通过 addRoute() 方法添加到路由上面。
 # 结尾
 项目到这里基本就已经结束了，后面应该会根据自己的实际项目，添加一些功能，比如权限获取、侧边栏的封装、防重复请求等等，但是应该是不会更新在文档上了（有机会的话会写在后面的**补充**上面），所以搭建文档和实际拉取下来的项目可能有点出入。
